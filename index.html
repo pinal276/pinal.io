@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinal Patel — Flutter Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white:    #ffffff;
+  --off:      #f7f5f0;
+  --off2:     #eeeae2;
+  --ink:      #1a1a2e;
+  --ink2:     #2d2d4a;
+  --green:    #1b6b4a;
+  --green2:   #27916a;
+  --green3:   #3ab88a;
+  --green-bg: rgba(27,107,74,0.06);
+  --violet:   #6c3fc9;
+  --violet2:  #8b5cf6;
+  --violet-bg:rgba(108,63,201,0.07);
+  --muted:    #8a8a9a;
+  --border:   #e8e4dc;
+  --border2:  rgba(26,26,46,0.1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--white);
+  color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
+}
+
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--off);}
+::-webkit-scrollbar-thumb{background:var(--green);border-radius:2px;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 5rem;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:padding 0.3s;
+}
+
+/* ── LOGO ── */
+.logo-wrap{display:flex;align-items:center;gap:0.9rem;text-decoration:none;}
+.logo-svg{width:46px;height:46px;flex-shrink:0;}
+.logo-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;font-weight:700;
+  color:var(--ink);letter-spacing:0.3px;line-height:1.2;
+}
+.logo-text span{color:var(--green);font-style:italic;}
+.logo-sub{
+  font-family:'Space Mono',monospace;
+  font-size:0.52rem;font-weight:400;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--muted);
+}
+
+.nav-links{display:flex;gap:2.5rem;align-items:center;}
+.nav-links a{
+  font-size:0.75rem;font-weight:600;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  transition:color 0.2s;
+  position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;
+  background:var(--green);transition:width 0.25s ease;
+}
+.nav-links a:hover{color:var(--green);}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{
+  background:var(--ink)!important;color:var(--white)!important;
+  padding:0.55rem 1.5rem;border-radius:2px;
+  font-size:0.72rem!important;font-weight:700!important;
+  letter-spacing:2px!important;
+  transition:background 0.2s,transform 0.2s!important;
+}
+.nav-cta::after{display:none!important;}
+.nav-cta:hover{background:var(--green)!important;transform:translateY(-2px);}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  padding:9rem 5rem 5rem;
+  display:grid;
+  grid-template-columns:1.2fr 0.8fr;
+  gap:5rem;
+  align-items:center;
+  position:relative;overflow:hidden;
+  background:var(--white);
+}
+
+/* Big decorative letter */
+#hero::after{
+  content:'PP';
+  position:absolute;
+  right:-2%;bottom:-10%;
+  font-family:'Cormorant Garamond',serif;
+  font-size:28vw;font-weight:700;font-style:italic;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(26,26,46,0.04);
+  pointer-events:none;
+  line-height:1;
+  z-index:0;
+}
+
+/* Top accent stripe */
+#hero::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--green),var(--violet),var(--green));
+  z-index:10;
+}
+
+.hero-left{position:relative;z-index:2;}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.7rem;
+  background:var(--green-bg);
+  border:1px solid rgba(27,107,74,0.2);
+  padding:0.45rem 1.1rem;border-radius:100px;
+  font-family:'Space Mono',monospace;
+  font-size:0.64rem;font-weight:400;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--green2);margin-bottom:2.5rem;
+  animation:fadeUp 0.7s ease both;
+}
+.badge-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--green3);
+  animation:pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot{
+  0%,100%{box-shadow:0 0 0 0 rgba(27,107,74,0.4);}
+  50%{box-shadow:0 0 0 6px rgba(27,107,74,0);}
+}
+
+.hero-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(4rem,8.5vw,8rem);
+  font-weight:700;line-height:0.92;
+  letter-spacing:-2px;
+  margin-bottom:0.5rem;
+  animation:fadeUp 0.7s 0.1s ease both;
+  color:var(--ink);
+}
+.hero-name .italic{
+  font-style:italic;
+  color:var(--green);
+  -webkit-text-stroke:0;
+}
+.hero-name .outline{
+  font-style:italic;
+  color:transparent;
+  -webkit-text-stroke:2px var(--ink);
+}
+
+.hero-role-line{
+  display:flex;align-items:center;gap:1.2rem;
+  margin-bottom:2rem;
+  animation:fadeUp 0.7s 0.18s ease both;
+}
+.hero-role-line::before{
+  content:'';width:50px;height:2px;
+  background:var(--green);flex-shrink:0;
+}
+.hero-role{
+  font-family:'Space Mono',monospace;
+  font-size:0.72rem;font-weight:400;
+  letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--muted);
+}
+
+.hero-desc{
+  font-size:1.05rem;line-height:1.85;
+  color:rgba(26,26,46,0.6);
+  max-width:520px;font-weight:400;
+  margin-bottom:3rem;
+  animation:fadeUp 0.7s 0.26s ease both;
+}
+
+.hero-actions{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  animation:fadeUp 0.7s 0.34s ease both;
+}
+.btn{
+  padding:1rem 2.2rem;border-radius:2px;
+  font-family:'DM Sans',sans-serif;
+  font-size:0.76rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;transition:all 0.25s;
+  display:inline-flex;align-items:center;gap:0.5rem;
+  border:none;cursor:pointer;
+}
+.btn-ink{
+  background:var(--ink);color:var(--white);
+}
+.btn-ink:hover{
+  background:var(--green);transform:translateY(-2px);
+  box-shadow:0 14px 35px rgba(27,107,74,0.25);
+}
+.btn-ghost{
+  background:transparent;color:var(--ink);
+  border:1.5px solid var(--border2);
+}
+.btn-ghost:hover{
+  border-color:var(--violet);color:var(--violet);
+  transform:translateY(-2px);
+}
+
+/* Hero Right — stats card */
+.hero-right{
+  position:relative;z-index:2;
+  animation:fadeRight 0.9s 0.25s ease both;
+}
+.stats-card{
+  background:var(--ink);
+  border-radius:20px;padding:2.5rem;
+  position:relative;overflow:hidden;
+  box-shadow:0 40px 80px rgba(26,26,46,0.18);
+}
+/* Green side accent */
+.stats-card::before{
+  content:'';
+  position:absolute;top:0;left:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,var(--green3),var(--violet2),var(--green3));
+}
+/* Subtle grid texture */
+.stats-card::after{
+  content:'';
+  position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,0.03) 1px,transparent 1px);
+  background-size:28px 28px;
+  pointer-events:none;
+}
+
+.stats-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2rem;margin-bottom:2.5rem;
+}
+.stat-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.4rem;font-weight:700;
+  color:var(--white);line-height:1;
+}
+.stat-num span{color:var(--green3);font-size:1.6rem;}
+.stat-label{
+  font-family:'Space Mono',monospace;
+  font-size:0.6rem;font-weight:400;
+  letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);margin-top:0.4rem;
+}
+
+.card-divider{height:1px;background:rgba(255,255,255,0.08);margin:0 0 2rem;}
+
+.services-list{display:flex;flex-direction:column;gap:0.75rem;}
+.service-item{
+  display:flex;align-items:center;gap:0.8rem;
+  font-size:0.83rem;color:rgba(255,255,255,0.55);
+  transition:color 0.2s;
+}
+.service-item::before{
+  content:'↗';color:var(--green3);font-size:0.8rem;
+  font-weight:700;flex-shrink:0;
+}
+.service-item:hover{color:rgba(255,255,255,0.9);}
+
+/* ── SECTIONS ── */
+section{padding:7rem 5rem;}
+
+.sec-label{
+  display:inline-flex;align-items:center;gap:0.8rem;
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;font-weight:400;
+  letter-spacing:4px;text-transform:uppercase;
+  color:var(--green);margin-bottom:0.8rem;
+}
+.sec-label::before{content:'//';opacity:0.4;}
+
+.sec-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.4rem,5vw,4rem);
+  font-weight:700;line-height:1.02;
+  color:var(--ink);margin-bottom:3.5rem;
+  letter-spacing:-0.5px;
+}
+.sec-title em{font-style:italic;color:var(--green);}
+
+/* ── SKILLS ── */
+#skills{background:var(--off);}
+
+.skills-bento{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;
+}
+.skill-tile{
+  background:var(--white);padding:2.2rem;
+  transition:background 0.3s;
+  position:relative;
+}
+.skill-tile:hover{background:var(--off);}
+.skill-tile::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--green),var(--violet));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.35s ease;
+}
+.skill-tile:hover::after{transform:scaleX(1);}
+
+.tile-icon{font-size:1.8rem;margin-bottom:1.1rem;}
+.tile-name{
+  font-family:'Space Mono',monospace;
+  font-size:0.72rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink);margin-bottom:0.7rem;
+}
+.tile-desc{font-size:0.84rem;color:var(--muted);line-height:1.7;}
+.tile-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.1rem;}
+.tag{
+  font-size:0.62rem;font-weight:600;
+  letter-spacing:1.2px;text-transform:uppercase;
+  padding:0.28rem 0.7rem;border-radius:2px;
+  background:var(--green-bg);
+  border:1px solid rgba(27,107,74,0.15);
+  color:var(--green2);
+  font-family:'Space Mono',monospace;
+}
+
+/* ── EXPERIENCE ── */
+#experience{background:var(--white);}
+
+.exp-items{display:flex;flex-direction:column;}
+.exp-row{
+  display:grid;grid-template-columns:220px 1fr;
+  gap:3rem;padding:2.8rem 0;
+  border-bottom:1px solid var(--border);
+  transition:padding-left 0.3s;
+}
+.exp-row:first-child{border-top:1px solid var(--border);}
+.exp-row:hover{padding-left:0.8rem;}
+
+.exp-period{
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;font-weight:400;
+  letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--green);margin-bottom:0.4rem;
+}
+.exp-where{font-size:0.78rem;color:var(--muted);}
+.exp-role{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.75rem;font-weight:700;line-height:1.1;
+  color:var(--ink);margin-bottom:0.25rem;
+}
+.exp-company{
+  font-family:'Space Mono',monospace;
+  font-size:0.68rem;font-weight:400;
+  letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--violet);margin-bottom:1.2rem;
+}
+.exp-pts{list-style:none;}
+.exp-pts li{
+  font-size:0.87rem;color:var(--muted);
+  line-height:1.75;padding:0.18rem 0 0.18rem 1.2rem;
+  position:relative;
+}
+.exp-pts li::before{
+  content:'→';position:absolute;left:0;
+  color:var(--green);opacity:0.7;
+}
+
+/* ── PROJECTS ── */
+#projects{background:var(--off);}
+
+.proj-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+}
+.proj-tile{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:14px;padding:2rem;
+  transition:all 0.3s;position:relative;overflow:hidden;
+}
+.proj-tile::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--green-bg),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.proj-tile:hover{
+  border-color:rgba(27,107,74,0.25);
+  transform:translateY(-6px);
+  box-shadow:0 28px 55px rgba(26,26,46,0.1);
+}
+.proj-tile:hover::before{opacity:1;}
+
+.proj-count{
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.5rem;font-weight:700;
+  color:rgba(26,26,46,0.05);line-height:1;
+  margin-bottom:0.5rem;
+}
+.proj-icon{font-size:1.6rem;margin-bottom:1rem;}
+.proj-title{
+  font-family:'Space Mono',monospace;
+  font-size:0.72rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink);margin-bottom:0.8rem;
+}
+.proj-body{font-size:0.84rem;color:var(--muted);line-height:1.7;margin-bottom:1.2rem;}
+.proj-cta{
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--green);opacity:0;
+  transition:opacity 0.25s;display:flex;align-items:center;gap:0.4rem;
+}
+.proj-tile:hover .proj-cta{opacity:1;}
+
+/* ── ACHIEVEMENTS ── */
+#achievements{background:var(--white);}
+
+.ach-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:2px;background:var(--border);
+  border:1px solid var(--border);border-radius:14px;overflow:hidden;
+}
+.ach-cell{
+  background:var(--white);
+  padding:2.2rem;display:flex;
+  align-items:flex-start;gap:1.5rem;
+  transition:background 0.25s;
+}
+.ach-cell:hover{background:var(--off);}
+.ach-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.8rem;font-weight:700;
+  color:var(--green);opacity:0.18;
+  line-height:1;min-width:38px;
+}
+.ach-body{font-size:0.88rem;color:var(--muted);line-height:1.75;}
+.ach-body strong{color:var(--ink);font-weight:700;}
+
+/* ── CONTACT ── */
+#contact{
+  background:var(--ink);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;
+  position:relative;overflow:hidden;
+}
+#contact::before{
+  content:'';position:absolute;
+  top:-50%;right:-10%;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(27,107,74,0.12),transparent 60%);
+  pointer-events:none;
+}
+.contact-head{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  font-weight:700;line-height:1.05;margin-bottom:1.5rem;
+  color:var(--white);
+}
+.contact-head em{font-style:italic;color:var(--green3);}
+.contact-subtext{
+  font-size:0.95rem;color:rgba(255,255,255,0.45);
+  line-height:1.8;font-weight:400;margin-bottom:2.5rem;
+}
+
+.contact-tiles{display:flex;flex-direction:column;gap:0;}
+.c-tile{
+  display:flex;align-items:center;gap:1.4rem;
+  padding:1.6rem 0;border-bottom:1px solid rgba(255,255,255,0.07);
+  transition:padding-left 0.25s;
+}
+.c-tile:first-child{border-top:1px solid rgba(255,255,255,0.07);}
+.c-tile:hover{padding-left:0.6rem;}
+.c-icon{
+  width:44px;height:44px;min-width:44px;border-radius:8px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:background 0.25s;
+}
+.c-tile:hover .c-icon{background:var(--green);}
+.c-lbl{
+  font-family:'Space Mono',monospace;
+  font-size:0.58rem;font-weight:400;
+  letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,0.3);margin-bottom:0.25rem;
+}
+.c-val{font-size:0.92rem;color:rgba(255,255,255,0.75);font-weight:500;}
+.c-val a{color:inherit;text-decoration:none;}
+.c-val a:hover{color:var(--green3);}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--ink);
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding:2rem 5rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.foot-logo{display:flex;align-items:center;gap:0.8rem;}
+.foot-logo svg{width:32px;height:32px;}
+.foot-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-weight:700;color:var(--white);
+}
+.foot-copy{
+  font-family:'Space Mono',monospace;
+  font-size:0.6rem;font-weight:400;
+  letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes fadeRight{
+  from{opacity:0;transform:translateX(30px);}
+  to{opacity:1;transform:translateX(0);}
+}
+@keyframes lineGrow{
+  from{width:0;}to{width:100%;}
+}
+
+.reveal{
+  opacity:0;transform:translateY(32px);
+  transition:opacity 0.65s ease,transform 0.65s ease;
+}
+.reveal.on{opacity:1;transform:translateY(0);}
+.reveal-r{
+  opacity:0;transform:translateX(32px);
+  transition:opacity 0.65s ease,transform 0.65s ease;
+}
+.reveal-r.on{opacity:1;transform:translateX(0);}
+
+/* ── MOBILE ── */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  #hero{grid-template-columns:1fr;padding:7rem 1.5rem 4rem;gap:3rem;}
+  #hero::after{display:none;}
+  section{padding:4rem 1.5rem;}
+  .skills-bento{grid-template-columns:1fr;}
+  .exp-row{grid-template-columns:1fr;gap:0.6rem;}
+  .proj-grid{grid-template-columns:1fr;}
+  .ach-grid{grid-template-columns:1fr;}
+  #contact{grid-template-columns:1fr;gap:3rem;}
+  footer{flex-direction:column;gap:1rem;padding:1.5rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#hero" class="logo-wrap">
+    <!-- PP Logo — White bg, Green + Violet, no black bg -->
+    <svg class="logo-svg" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="logoBg" x1="0" y1="0" x2="46" y2="46">
+          <stop offset="0%" stop-color="#f7f5f0"/>
+          <stop offset="100%" stop-color="#eeeae2"/>
+        </linearGradient>
+        <linearGradient id="gG" x1="0" y1="0" x2="0" y2="22">
+          <stop offset="0%" stop-color="#1b6b4a"/>
+          <stop offset="100%" stop-color="#3ab88a"/>
+        </linearGradient>
+        <linearGradient id="vG" x1="0" y1="0" x2="0" y2="22">
+          <stop offset="0%" stop-color="#6c3fc9"/>
+          <stop offset="100%" stop-color="#8b5cf6"/>
+        </linearGradient>
+      </defs>
+      <!-- Background -->
+      <rect width="46" height="46" rx="11" fill="url(#logoBg)" stroke="#e8e4dc" stroke-width="1"/>
+      <!-- Top bar gradient -->
+      <rect x="0" y="0" width="46" height="3.5" rx="1.75" fill="url(#gG)"/>
+      <!-- P left — green -->
+      <rect x="7" y="11" width="3" height="20" rx="1.5" fill="url(#gG)"/>
+      <rect x="7" y="11" width="11" height="3" rx="1.5" fill="url(#gG)"/>
+      <rect x="7" y="19.5" width="11" height="2.8" rx="1.4" fill="url(#gG)"/>
+      <rect x="18" y="11" width="3" height="11.3" rx="1.5" fill="url(#gG)"/>
+      <!-- gap 2px -->
+      <!-- P right — violet -->
+      <rect x="23" y="11" width="3" height="20" rx="1.5" fill="url(#vG)"/>
+      <rect x="23" y="11" width="11" height="3" rx="1.5" fill="url(#vG)"/>
+      <rect x="23" y="19.5" width="11" height="2.8" rx="1.4" fill="url(#vG)"/>
+      <rect x="34" y="11" width="3" height="11.3" rx="1.5" fill="url(#vG)"/>
+      <!-- Bottom dot -->
+      <circle cx="23" cy="40" r="2.2" fill="url(#gG)" opacity="0.5"/>
+    </svg>
+    <div>
+      <div class="logo-text">Pinal <span>Patel</span></div>
+      <div class="logo-sub">Flutter Developer</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#achievements">Wins</a>
+    <a href="#contact" class="nav-cta">Hire Me</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Available for Freelance
+    </div>
+    <h1 class="hero-name">
+      Pinal<br><span class="italic">Patel.</span>
+    </h1>
+    <div class="hero-role-line">
+      <span class="hero-role">Flutter Developer &amp; Software Engineer</span>
+    </div>
+    <p class="hero-desc">
+      2+ years Flutter expertise, 8+ years in software engineering.
+      Crafting production-grade cross-platform apps for Android &amp; iOS —
+      from MVPs to full-featured platforms across e-commerce, grocery, quiz &amp; enterprise domains.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-ink">↗ Hire Me</a>
+      <a href="#projects" class="btn btn-ghost">View Projects</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="stats-card">
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-num" data-count="8">0<span>+</span></div>
+          <div class="stat-label">Years Exp.</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" data-count="6">0<span>+</span></div>
+          <div class="stat-label">Apps Built</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" data-count="60">0<span>%+</span></div>
+          <div class="stat-label">Faster Search</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" data-count="4">0<span>+</span></div>
+          <div class="stat-label">Search Projects</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="services-list">
+        <div class="service-item">Cross-platform App Development</div>
+        <div class="service-item">REST API &amp; Firebase Integration</div>
+        <div class="service-item">App Store / Play Store Publishing</div>
+        <div class="service-item">Bug Fixing &amp; Optimization</div>
+        <div class="service-item">Real-time Data Dashboards</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section id="skills">
+  <div class="reveal">
+    <div class="sec-label">Expertise</div>
+    <h2 class="sec-title">Skills &amp; <em>Capabilities</em></h2>
+  </div>
+  <div class="skills-bento">
+    <div class="skill-tile reveal">
+      <div class="tile-icon">📱</div>
+      <div class="tile-name">Flutter & Dart</div>
+      <div class="tile-desc">Production-grade cross-platform apps for Android & iOS with beautiful, performant UI.</div>
+      <div class="tile-tags"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">Android</span><span class="tag">iOS</span></div>
+    </div>
+    <div class="skill-tile reveal">
+      <div class="tile-icon">🏗️</div>
+      <div class="tile-name">State Management</div>
+      <div class="tile-desc">Clean scalable architecture with modern state patterns for maintainable apps.</div>
+      <div class="tile-tags"><span class="tag">Provider</span><span class="tag">BLoC</span><span class="tag">Riverpod</span></div>
+    </div>
+    <div class="skill-tile reveal">
+      <div class="tile-icon">🔥</div>
+      <div class="tile-name">Firebase & APIs</div>
+      <div class="tile-desc">Real-time databases, FCM push notifications, and seamless REST integrations.</div>
+      <div class="tile-tags"><span class="tag">Firebase</span><span class="tag">FCM</span><span class="tag">Firestore</span><span class="tag">REST</span></div>
+    </div>
+    <div class="skill-tile reveal">
+      <div class="tile-icon">🔍</div>
+      <div class="tile-name">Advanced Search</div>
+      <div class="tile-desc">Debounce-based fast search, smart filters, sorting, offline caching — 60% faster lookup.</div>
+      <div class="tile-tags"><span class="tag">Debounce</span><span class="tag">Filtering</span><span class="tag">Caching</span></div>
+    </div>
+    <div class="skill-tile reveal">
+      <div class="tile-icon">📊</div>
+      <div class="tile-name">Power BI & Data</div>
+      <div class="tile-desc">Interactive KPI dashboards using DAX, dynamic data sources & real-time visualization.</div>
+      <div class="tile-tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">SQL Server</span></div>
+    </div>
+    <div class="skill-tile reveal">
+      <div class="tile-icon">✍️</div>
+      <div class="tile-name">Integrations</div>
+      <div class="tile-desc">DocuSign digital signatures, SharePoint Online, Power Automate, VB.NET & C# workflows.</div>
+      <div class="tile-tags"><span class="tag">DocuSign</span><span class="tag">SharePoint</span><span class="tag">C#</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ── -->
+<section id="experience">
+  <div class="reveal">
+    <div class="sec-label">Career</div>
+    <h2 class="sec-title">Work <em>Experience</em></h2>
+  </div>
+  <div class="exp-items">
+    <div class="exp-row reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Jan 2025 — Present</div>
+        <div class="exp-where">Surat, Gujarat</div>
+      </div>
+      <div>
+        <div class="exp-role">Flutter Developer</div>
+        <div class="exp-company">MBH Technology</div>
+        <ul class="exp-pts">
+          <li>Built multiple cross-platform Flutter apps — e-commerce, grocery, quiz & vendor management</li>
+          <li>Engineered advanced search: debounce, category/project-wise filtering, smart suggestions & sorting</li>
+          <li>Optimized performance with API-driven updates, local indexing & cached offline search</li>
+          <li>Integrated Firebase FCM push notifications, JSON parsing, pagination & error handling</li>
+          <li>Implemented bidding/auction flows, custom animations, dialogs & bottom sheets</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-row reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Jul 2023 — Dec 2024</div>
+        <div class="exp-where">Surat, Gujarat</div>
+      </div>
+      <div>
+        <div class="exp-role">Flutter Developer</div>
+        <div class="exp-company">Tec Hive InfoTech</div>
+        <ul class="exp-pts">
+          <li>Developed cross-platform Flutter apps with dynamic UI/UX & robust REST API integrations</li>
+          <li>Implemented DocuSign API for secure digital signature workflows & approval automation</li>
+          <li>Delivered interactive Power BI dashboards for KPI tracking & real-time visualization</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-row reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Jan 2023 — May 2023</div>
+        <div class="exp-where">Noida</div>
+      </div>
+      <div>
+        <div class="exp-role">SharePoint Developer</div>
+        <div class="exp-company">SynapseIndia</div>
+        <ul class="exp-pts">
+          <li>Migrated legacy systems to SharePoint Online</li>
+          <li>Designed Power Automate & InfoPath workflows; built secure document sharing platforms</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-row reveal">
+      <div class="exp-meta">
+        <div class="exp-period">Apr 2017 — Dec 2022</div>
+        <div class="exp-where">Surat, Gujarat</div>
+      </div>
+      <div>
+        <div class="exp-role">Software Engineer</div>
+        <div class="exp-company">L&T-MHPS Turbine Generators</div>
+        <ul class="exp-pts">
+          <li>Led SharePoint 2010→2016 migration with zero data loss</li>
+          <li>Developed VB.NET/C# apps — reduced workflow time by 20%</li>
+          <li>Automated server monitoring — 30% less manual effort</li>
+          <li>Upgraded SQL Server 2012→2017 for improved performance & security</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section id="projects">
+  <div class="reveal">
+    <div class="sec-label">Portfolio</div>
+    <h2 class="sec-title">Key <em>Projects</em></h2>
+  </div>
+  <div class="proj-grid">
+    <div class="proj-tile reveal">
+      <div class="proj-count">01</div>
+      <div class="proj-icon">🛒</div>
+      <div class="proj-title">E-Commerce App</div>
+      <div class="proj-body">Product listing, bidding/auction, advanced search, real-time updates, price & rating filters.</div>
+      <div class="tile-tags"><span class="tag">Flutter</span><span class="tag">BLoC</span><span class="tag">Auction</span></div>
+      <div class="proj-cta">View Details ↗</div>
+    </div>
+    <div class="proj-tile reveal">
+      <div class="proj-count">02</div>
+      <div class="proj-icon">🛵</div>
+      <div class="proj-title">Grocery Delivery App</div>
+      <div class="proj-body">Live inventory search, offline caching, order management & FCM push notifications.</div>
+      <div class="tile-tags"><span class="tag">Flutter</span><span class="tag">Firebase</span><span class="tag">Offline</span></div>
+      <div class="proj-cta">View Details ↗</div>
+    </div>
+    <div class="proj-tile reveal">
+      <div class="proj-count">03</div>
+      <div class="proj-icon">🎯</div>
+      <div class="proj-title">Quiz Platform</div>
+      <div class="proj-body">Category-wise questions, smart search, leaderboard & full admin control panel.</div>
+      <div class="tile-tags"><span class="tag">Flutter</span><span class="tag">Riverpod</span><span class="tag">Admin</span></div>
+      <div class="proj-cta">View Details ↗</div>
+    </div>
+    <div class="proj-tile reveal">
+      <div class="proj-count">04</div>
+      <div class="proj-icon">🤝</div>
+      <div class="proj-title">Vendor Management App</div>
+      <div class="proj-body">B2B vendor portal with win/loss sorting, vendor profiles & document workflows.</div>
+      <div class="tile-tags"><span class="tag">Flutter</span><span class="tag">B2B</span><span class="tag">DocuSign</span></div>
+      <div class="proj-cta">View Details ↗</div>
+    </div>
+    <div class="proj-tile reveal">
+      <div class="proj-count">05</div>
+      <div class="proj-icon">✍️</div>
+      <div class="proj-title">DocuSign Integration</div>
+      <div class="proj-body">Digital signature & approval workflow automation using DocuSign API in Flutter.</div>
+      <div class="tile-tags"><span class="tag">DocuSign API</span><span class="tag">Automation</span></div>
+      <div class="proj-cta">View Details ↗</div>
+    </div>
+    <div class="proj-tile reveal">
+      <div class="proj-count">06</div>
+      <div class="proj-icon">📊</div>
+      <div class="proj-title">Power BI Dashboard</div>
+      <div class="proj-body">Real-time KPI dashboards with DAX & dynamic data sources for enterprise analytics.</div>
+      <div class="tile-tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">KPI</span></div>
+      <div class="proj-cta">View Details ↗</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ACHIEVEMENTS ── -->
+<section id="achievements">
+  <div class="reveal">
+    <div class="sec-label">Impact</div>
+    <h2 class="sec-title">Key <em>Achievements</em></h2>
+  </div>
+  <div class="ach-grid">
+    <div class="ach-cell reveal">
+      <div class="ach-n">01</div>
+      <div class="ach-body"><strong>6+ production Flutter apps</strong> delivered across diverse domains within 2 years</div>
+    </div>
+    <div class="ach-cell reveal">
+      <div class="ach-n">02</div>
+      <div class="ach-body">Built <strong>advanced search engine across 4 apps</strong> — <strong>60% faster lookup</strong> vs default</div>
+    </div>
+    <div class="ach-cell reveal">
+      <div class="ach-n">03</div>
+      <div class="ach-body">DocuSign integration <strong>significantly improved</strong> enterprise document approval turnaround</div>
+    </div>
+    <div class="ach-cell reveal">
+      <div class="ach-n">04</div>
+      <div class="ach-body">Led <strong>zero-data-loss</strong> enterprise SharePoint 2010→2016 platform migration</div>
+    </div>
+    <div class="ach-cell reveal">
+      <div class="ach-n">05</div>
+      <div class="ach-body">Automated server monitoring scripts — reduced <strong>manual effort by 30%</strong></div>
+    </div>
+    <div class="ach-cell reveal">
+      <div class="ach-n">06</div>
+      <div class="ach-body">SQL Server <strong>2012→2017 upgrade</strong> improved database performance & security</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="reveal">
+    <h2 class="contact-head">Let's Build<br><em>Together.</em></h2>
+    <p class="contact-subtext">
+      Available for freelance projects — MVPs, full-featured apps, bug fixes, and optimization.
+      Based in Surat, Gujarat. Working with clients globally.
+    </p>
+    <a href="mailto:pinalpatel@email.com" class="btn btn-ink" style="background:var(--green);color:#fff;">↗ Send Message</a>
+  </div>
+  <div class="contact-tiles reveal-r">
+    <div class="c-tile">
+      <div class="c-icon">📞</div>
+      <div>
+        <div class="c-lbl">Phone</div>
+        <div class="c-val"><a href="tel:+918758550002">+91 87585 50002</a></div>
+      </div>
+    </div>
+    <div class="c-tile">
+      <div class="c-icon">✉️</div>
+      <div>
+        <div class="c-lbl">Email</div>
+        <div class="c-val">pinalpatel@email.com</div>
+      </div>
+    </div>
+    <div class="c-tile">
+      <div class="c-icon">📍</div>
+      <div>
+        <div class="c-lbl">Location</div>
+        <div class="c-val">Surat, Gujarat, India</div>
+      </div>
+    </div>
+    <div class="c-tile">
+      <div class="c-icon">🎓</div>
+      <div>
+        <div class="c-lbl">Education</div>
+        <div class="c-val">M.Sc. IT — Charotar University, 2017</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="foot-logo">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="fBg2" x1="0" y1="0" x2="32" y2="32">
+          <stop offset="0%" stop-color="#1a1a2e"/>
+          <stop offset="100%" stop-color="#2d2d4a"/>
+        </linearGradient>
+      </defs>
+      <rect width="32" height="32" rx="7" fill="url(#fBg2)"/>
+      <rect x="0" y="0" width="32" height="2.5" rx="1.25" fill="#1b6b4a"/>
+      <rect x="5" y="8" width="2.5" height="16" rx="1.25" fill="#3ab88a"/>
+      <rect x="5" y="8" width="9" height="2.5" rx="1.25" fill="#3ab88a"/>
+      <rect x="5" y="14.5" width="9" height="2.5" rx="1.25" fill="#3ab88a"/>
+      <rect x="14" y="8" width="2.5" height="9" rx="1.25" fill="#3ab88a"/>
+      <rect x="18" y="8" width="2.5" height="16" rx="1.25" fill="#8b5cf6"/>
+      <rect x="18" y="8" width="9" height="2.5" rx="1.25" fill="#8b5cf6"/>
+      <rect x="18" y="14.5" width="9" height="2.5" rx="1.25" fill="#8b5cf6"/>
+      <rect x="27" y="8" width="2.5" height="9" rx="1.25" fill="#8b5cf6"/>
+    </svg>
+    <div class="foot-name">Pinal Patel</div>
+  </div>
+  <div class="foot-copy">© 2025 · Flutter Developer · Surat, India</div>
+</footer>
+
+<script>
+// ── Counter (uses data-count, number-only display) ──
+function animateCount(el, target) {
+  let cur = 0;
+  const isStat = el.querySelector ? false : true;
+  const step = target / 60;
+  const t = setInterval(() => {
+    cur += step;
+    if (cur >= target) { cur = target; clearInterval(t); }
+    // Find text node only (leave child span)
+    const span = el.querySelector('span');
+    if (span) {
+      el.childNodes[0].textContent = Math.floor(cur);
+    } else {
+      el.textContent = Math.floor(cur) + '+';
+    }
+  }, 20);
+}
+const cObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCount(e.target, parseInt(e.target.dataset.count));
+      cObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => cObs.observe(el));
+
+// ── Reveal on scroll with stagger ──
+const rObs = new IntersectionObserver(entries => {
+  let delay = 0;
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('on'), delay);
+      delay += 80;
+      rObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal, .reveal-r').forEach(el => rObs.observe(el));
+
+// ── Nav shrink ──
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  nav.style.padding = window.scrollY > 60 ? '0.75rem 5rem' : '1.2rem 5rem';
+});
+</script>
+</body>
+</html>
